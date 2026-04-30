@@ -68,11 +68,16 @@ class AggressiveAgent:
         ATURAN DASAR TINDAKAN BOT (LOGIKA KAMU):
         =========================================
         1. DI AWAL PERMAINAN: Kamu WAJIB memprioritaskan mencari senjata dan item penyembuh terlebih dahulu agar tidak tangan kosong.
-        2. MANAJEMEN SENJATA: Jika melihat senjata dengan 'ATK Bonus' lebih tinggi di tanah, gunakan aksi 'pickup' dan 'equip' (Aksi Bebas!). Buang yang lemah.
-        3. ANTI-GAS: Jika berada di Death Zone atau wilayahmu masuk daftar 'pendingDeathzones', prioritaskan aksi 'move' ke koneksi region yang aman.
-        4. HEALING MAKSIMAL: Jika HP-mu belum mencapai 100 dan kamu masih memiliki item penyembuh (Bandage/Medkit/Food) di dalam tas, gunakan aksi 'use_item' terus sampai HP-mu menyentuh angka 100 penuh. Usahakan darah selalu penuh!
-        5. HEMAT ENERGI (EP): JANGAN buang-buang EP. JIKA TIDAK ADA MUSUH di dekatmu dan tidak sedang dalam bahaya gas, batasi penggunaan EP. Gunakan aksi 'rest' untuk menimbun energi. KECUALI JIKA ADA MUSUH, kamu boleh jor-joran menggunakan energi untuk bertempur!
-        6. AMBIL SMOLTZ: Setiap kali kamu membunuh musuh atau monster, dan mereka menjatuhkan koin sMoltz ke tanah, gunakan aksi 'pickup' untuk langsung mengambilnya!
+        2. MANAJEMEN SENJATA: Jika melihat senjata dengan 'ATK Bonus' lebih tinggi di tanah, gunakan aksi 'pickup' dan 'equip' (Aksi Bebas!). Buang yang lemah. Jika di region tempatmu berada saat ini tidak ada apa-apa, segeralah pindah (move) ke region lain yang memiliki senjata dan item lainnya, namun ingatkan dirimu bahwa prioritas utamamu tetaplah mencari senjata terlebih dahulu.
+        3. HEMAT ENERGI (EP): JANGAN buang-buang EP. JIKA TIDAK ADA MUSUH di dekatmu dan tidak sedang dalam bahaya gas, batasi penggunaan EP. Gunakan aksi 'rest' untuk menimbun energi. KECUALI JIKA ADA MUSUH, kamu boleh jor-joran menggunakan energi untuk bertempur!
+        4. PENYERANGAN & BERBURU GUARDIAN: 
+          - Jika ada 1 musuh (Player/Agent) di region yang sama, nilai situasinya (cek senjata dan HP). Jika kamu unggul atau setara, habisi musuh tersebut untuk mengamankan kill dan menaikkan peringkat!
+          - Jika kondisi kuat (Punya Katana/Sniper dan HP/EP penuh), buru 5 Guardian untuk mengumpulkan 120 sMoltz. Hitung damagemu dulu agar tidak mati konyol melawan DEF 12 mereka!
+          - **PENCURI KESEMPATAN**: Jika semua kondisi di atas terpenuhi dan kamu mendeteksi ada musuh (Player/Agent) yang darahnya sekarat (HP < 40) di dekatmu, abaikan rasa takut dan segeralah kejar serta habisi musuh sekarat tersebut demi mencuri kill dan menaikkan peringkat!
+        5. HEALING MAKSIMAL: Jika HP-mu belum mencapai 100 dan kamu masih memiliki item penyembuh (Bandage/Medkit/Food) di dalam tas, gunakan aksi 'use_item' terus sampai HP-mu menyentuh angka 100 penuh. Usahakan darah selalu penuh!
+        6. AMBIL SMOLTZ: Setiap kali kamu membunuh musuh atau monster/guardian, dan mereka menjatuhkan koin sMoltz ke tanah, gunakan aksi 'pickup' untuk langsung mengambilnya!   
+        7. ANTI-GAS: Jika berada di Death Zone atau wilayahmu masuk daftar 'pendingDeathzones', prioritaskan aksi 'move' ke koneksi region yang aman.
+
         
         === TAMBAHAN LOGIKA CERDAS BARU ===
         7. RESPON WHISPER (DIPLOMASI): Cek pesan masuk di 'recentMessages'. Jika ada pemain lain yang mengirimkan pesan berisi pertanyaan matematika sederhana (seperti 2+2, 5-3), jawablah dengan angka yang benar melalui aksi 'whisper'. Jika pesannya hanya chat biasa, jawab dengan "Focusing on survival".
@@ -83,7 +88,7 @@ class AggressiveAgent:
             * Cek apakah kamu sudah memegang senjata.
             * Bandingkan senjatamu dengan senjata musuh menggunakan rumus damage resmi.
             * JANGAN PERNAH menyerang jika kamu masih tangan kosong (Fist) sementara musuh sudah memegang senjata tajam/api. Lebih baik gunakan 'move' untuk menjauh atau 'rest'.
-            * SERANG HANYA JIKA kamu memiliki senjata yang setara atau lebih kuat, atau darah musuh jauh lebih tipis dari darahmu.
+            * SERANG HANYA JIKA kamu memiliki senjata yang setara atau lebih kuat, atau darah musuh lebih tipis >20 HP dari darahmu.
             * Dilarang keras melakukan 'interact' dengan fasilitas apa pun (termasuk Broadcast Station) jika ada musuh di region yang sama agar kamu tidak lengah saat menilai situasi bertarung!
 
         
