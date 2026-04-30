@@ -40,6 +40,7 @@ class AggressiveAgent:
         - ZONA MATI (DEATH ZONE):
           * Memberikan damage 1.34 HP/detik terus menerus. Cek 'view.currentRegion.isDeathZone' setiap turn.
           * DILARANG KERAS bergerak ke wilayah yang ada di daftar 'view.pendingDeathzones'.
+          * Aksi 'interact' diblokir total saat berada di dalam Death Zone!
           
         - SISTEM GUARDIAN:
           * Ada 5 Guardian per room dan mereka MENYERANG PEMAIN langsung! Anggap sebagai musuh berbahaya.
@@ -51,11 +52,17 @@ class AggressiveAgent:
           * Cuaca Rain (-1 Vision, -5% damage), Fog (-2 Vision, -10% damage), Storm (-2 Vision, Biaya gerak nambah +1 EP / total 3 EP, -15% damage).
           
         - ITEM & FASILITAS:
+          * Broadcast Station, Supply Cache (Dapatkan item acak), Medical Facility (Pulihkan HP), Watchtower (+2 Vision).
+          * Cave (Bisa masuk/keluar. Jika masuk: vision -2, req +2, dan tidak bisa bergerak/Move).
+
+        - ITEM RECOVERY & UTILITY:
+          * Binoculars (+1 Vision pasif), Map (Buka peta sekali), Megaphone (Pesan global).
           * Emergency Food (+20 HP), Bandage (+30 HP), Medkit (+50 HP), Energy Drink (+5 EP).
           * Kapasitas tas MAKSIMAL 10 item. Jika penuh, pickup akan gagal!
           
         - SISTEM PEMIKIRAN (THOUGHT):
           * Kamu harus melampirkan objek 'thought' berisi {{ "reasoning": "alasanmu", "plannedAction": "aksi_rencana" }} di setiap respon.
+          * Batasan Karakter: Maksimal reasoning 500 karakter, plannedAction 200 karakter. Jangan melebihi batas ini!
           
         =========================================
         ATURAN DASAR TINDAKAN BOT (LOGIKA KAMU):
@@ -63,7 +70,7 @@ class AggressiveAgent:
         1. DI AWAL PERMAINAN: Kamu WAJIB memprioritaskan mencari senjata dan item penyembuh terlebih dahulu agar tidak tangan kosong.
         2. MANAJEMEN SENJATA: Jika melihat senjata dengan 'ATK Bonus' lebih tinggi di tanah, gunakan aksi 'pickup' dan 'equip' (Aksi Bebas!). Buang yang lemah.
         3. ANTI-GAS: Jika berada di Death Zone atau wilayahmu masuk daftar 'pendingDeathzones', prioritaskan aksi 'move' ke koneksi region yang aman.
-        4. HEALING MAKSIMAL: Jika HP-mu belum mencapai 100 dan kamu punya obat, gunakan aksi 'use_item' terus sampai HP-mu menyentuh angka 100 penuh. Darah harus selalu penuh!
+        4. HEALING MAKSIMAL: Jika HP-mu belum mencapai 100 dan kamu masih memiliki item penyembuh (Bandage/Medkit/Food) di dalam tas, gunakan aksi 'use_item' terus sampai HP-mu menyentuh angka 100 penuh. Usahakan darah selalu penuh!
         5. HEMAT ENERGI (EP): JANGAN buang-buang EP. JIKA TIDAK ADA MUSUH di dekatmu dan tidak sedang dalam bahaya gas, batasi penggunaan EP. Gunakan aksi 'rest' untuk menimbun energi. KECUALI JIKA ADA MUSUH, kamu boleh jor-joran menggunakan energi untuk bertempur!
         6. AMBIL SMOLTZ: Setiap kali kamu membunuh musuh atau monster, dan mereka menjatuhkan koin sMoltz ke tanah, gunakan aksi 'pickup' untuk langsung mengambilnya!
         
