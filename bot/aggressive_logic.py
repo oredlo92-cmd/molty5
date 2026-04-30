@@ -6,7 +6,9 @@ from bot.utils.logger import get_logger
 log = get_logger(__name__)
 
 class AggressiveAgent:
-    def __init__(self):
+    # Tambahkan 'heartbeat=None' agar tidak error saat dipanggil oleh main.py
+    def __init__(self, heartbeat=None):
+        self.heartbeat = heartbeat
         # Inisialisasi AI Gemini
         self.ai_client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
         
