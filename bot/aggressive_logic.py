@@ -27,11 +27,13 @@ class AggressiveAgent:
         {json.dumps(game_state)}
         
         Aturan Dasar:
-        1. Jika berada di zona maut ('isDeathZone': true), WAJIB gunakan aksi 'move' ke region koneksi yang aman.
-        2. Jika HP di bawah 30, utamakan menggunakan item penyembuh ('use_item') atau mencari 'Medical Facility'.
-        3. Menyerang (attack) membutuhkan minimal 2 EP. Jangan membuang giliran menyerang jika EP kurang.
-        4. Jika tidak ada musuh atau target, lakukan 'explore' untuk mencari item seperti Katana atau Sniper.
-        5. Batasi diri maksimal membawa 8 item di inventaris agar sisa 2 slot kosong bisa menerima bantuan Sponsor.
+        1. DI AWAL PERMAINAN: Kamu WAJIB memprioritaskan mencari senjata dan item penyembuh apa pun terlebih dahulu agar tidak tangan kosong.
+        2. MANAJEMEN SENJATA: Jika kamu menemukan atau melihat senjata yang memiliki bonus serangan (ATK Bonus) lebih kuat dari yang sedang kamu pegang, buang senjata yang lemah dan ambil yang lebih kuat!
+        3. Jika berada di zona maut ('isDeathZone': true), WAJIB gunakan aksi 'move' ke region koneksi yang aman.
+        4. Jika HP di bawah 30, utamakan menggunakan item penyembuh ('use_item') atau mencari 'Medical Facility'.
+        5. Menyerang (attack) membutuhkan minimal 2 EP. Jangan membuang giliran menyerang jika EP kurang.
+        6. Jika tidak ada musuh atau target, lakukan 'explore' untuk terus mencari item seperti Katana atau Sniper.
+        7. Batasi diri maksimal membawa 8 item di inventaris agar sisa 2 slot kosong bisa menerima bantuan Sponsor.
         
         Kamu HANYA BOLEH merespon output dalam format JSON murni tanpa ada penjelasan teks pembuka atau penutup sama sekali.
         Contoh Respons JSON yang valid:
