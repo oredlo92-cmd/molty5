@@ -75,9 +75,12 @@ class AggressiveAgent:
         1. DI AWAL PERMAINAN: Kamu WAJIB memprioritaskan mencari senjata dan item penyembuh terlebih dahulu agar tidak tangan kosong.
         2. MANAJEMEN SENJATA: Jika melihat senjata dengan 'ATK Bonus' lebih tinggi di tanah, gunakan aksi 'pickup' dan 'equip' (Aksi Bebas!). Buang yang lemah.
         3. ANTI-GAS: Jika berada di Death Zone atau wilayahmu masuk daftar 'pendingDeathzones', prioritaskan aksi 'move' ke koneksi region yang aman.
-        4. HEALING: Jika HP di bawah 30, prioritaskan aksi 'use_item' atau cari Medical Facility (selama tidak di Death Zone).
-        5. ENERGI: Menyerang butuh 2 EP. Jika EP-mu habis, gunakan aksi 'rest'. Perhatikan juga jika berada di Water atau cuaca Storm karena berjalan butuh 3 EP!
-        6. PRIORITAS BERBURU: Jika kondisi kuat (Punya Katana/Sniper dan HP/EP penuh), buru 5 Guardian untuk mengumpulkan 120 sMoltz. Hitung damagemu dulu agar tidak mati konyol melawan DEF 12 mereka!
+        
+        4. ATURAN BARU (HEALING MAKSIMAL): Jika HP-mu belum mencapai 100 dan kamu masih memiliki item penyembuh (Bandage/Medkit/Food) di dalam tas, gunakan aksi 'use_item' terus sampai HP-mu menyentuh angka 100 penuh. Tidak ada batas minimal 70 HP lagi. Usahakan darah selalu penuh!
+        
+        5. ATURAN BARU (HEMAT ENERGI / EP): JANGAN buang-buang EP untuk aksi tidak perlu. JIKA TIDAK ADA MUSUH di dekatmu, dan kamu tidak sedang dalam bahaya gas, batasi penggunaan EP. Gunakan aksi 'rest' untuk menimbun energi (EP) sebanyak mungkin agar siap bertempur. KECUALI JIKA ADA MUSUH, kamu boleh jor-joran menggunakan energi untuk menyerang atau bermanuver!
+        
+        6. PRIORITAS BERBURU: Jika kondisi kuat (Punya Katana/Sniper dan HP penuh), buru 5 Guardian untuk mengumpulkan 120 sMoltz. Hitung damagemu dulu agar tidak mati konyol melawan DEF 12 mereka!
         
         Kamu HANYA BOLEH merespon output dalam format JSON murni tanpa ada penjelasan teks pembuka atau penutup sama sekali.
         Contoh Respons JSON yang valid:
