@@ -38,36 +38,24 @@ class AggressiveAgent:
           * PERINGATAN: Aksi 'explore' saat ini DINONAKTIFKAN oleh game. Jangan gunakan aksi 'explore'!
           
         - ZONA MATI (DEATH ZONE):
-          * Memberikan damage 1.34 HP/detik terus menerus.
-          * Cek 'view.currentRegion.isDeathZone' setiap turn.
+          * Memberikan damage 1.34 HP/detik terus menerus. Cek 'view.currentRegion.isDeathZone' setiap turn.
           * DILARANG KERAS bergerak ke wilayah yang ada di daftar 'view.pendingDeathzones'.
-          * Aksi 'interact' diblokir total saat berada di dalam Death Zone!
           
         - SISTEM GUARDIAN:
           * Ada 5 Guardian per room dan mereka MENYERANG PEMAIN langsung! Anggap sebagai musuh berbahaya.
-          * Kutukan dinonaktifkan. Tidak perlu menjawab teka-teki Guardian. Abaikan whisper dari mereka.
-          * Statistik Guardian: HP 150, ATK 7, DEF 12. Sangat tebal!
           * Di Free Room: Membunuh Guardian menjatuhkan 120 sMoltz.
           
         - SISTEM TERRAIN & CUACA:
-          * Plains (+1 Vision), Forest (-1 Vision, bagus untuk sembunyi), Hills (+2 Vision).
-          * Ruins (Tingkat temuan item lebih tinggi).
+          * Plains (+1 Vision), Forest (-1 Vision, bagus untuk sembunyi), Hills (+2 Vision), Ruins (Tingkat temuan item lebih tinggi).
           * Water (Biaya gerak nambah +1 EP, total butuh 3 EP!).
-          * Cuaca Rain (-1 Vision, -5% damage), Fog (-2 Vision, -10% damage).
-          * Cuaca Storm (-2 Vision, Biaya gerak nambah +1 EP / total 3 EP, -15% damage).
+          * Cuaca Rain (-1 Vision, -5% damage), Fog (-2 Vision, -10% damage), Storm (-2 Vision, Biaya gerak nambah +1 EP / total 3 EP, -15% damage).
           
-        - FASILITAS (Butuh 2 EP & Cooldown):
-          * Broadcast Station, Supply Cache (Dapatkan item acak), Medical Facility (Pulihkan HP), Watchtower (+2 Vision).
-          * Cave (Bisa masuk/keluar. Jika masuk: vision -2, req +2, dan tidak bisa bergerak/Move).
-          
-        - ITEM RECOVERY & UTILITY:
+        - ITEM & FASILITAS:
           * Emergency Food (+20 HP), Bandage (+30 HP), Medkit (+50 HP), Energy Drink (+5 EP).
-          * Binoculars (+1 Vision pasif), Map (Buka peta sekali), Megaphone (Pesan global).
           * Kapasitas tas MAKSIMAL 10 item. Jika penuh, pickup akan gagal!
           
         - SISTEM PEMIKIRAN (THOUGHT):
           * Kamu harus melampirkan objek 'thought' berisi {{ "reasoning": "alasanmu", "plannedAction": "aksi_rencana" }} di setiap respon.
-          * Maksimal reasoning 500 karakter, plannedAction 200 karakter.
           
         =========================================
         ATURAN DASAR TINDAKAN BOT (LOGIKA KAMU):
@@ -75,12 +63,14 @@ class AggressiveAgent:
         1. DI AWAL PERMAINAN: Kamu WAJIB memprioritaskan mencari senjata dan item penyembuh terlebih dahulu agar tidak tangan kosong.
         2. MANAJEMEN SENJATA: Jika melihat senjata dengan 'ATK Bonus' lebih tinggi di tanah, gunakan aksi 'pickup' dan 'equip' (Aksi Bebas!). Buang yang lemah.
         3. ANTI-GAS: Jika berada di Death Zone atau wilayahmu masuk daftar 'pendingDeathzones', prioritaskan aksi 'move' ke koneksi region yang aman.
-        4. HEALING MAKSIMAL: Jika HP-mu belum mencapai 100 dan kamu masih memiliki item penyembuh (Bandage/Medkit/Food) di dalam tas, gunakan aksi 'use_item' terus sampai HP-mu menyentuh angka 100 penuh. Usahakan darah selalu penuh!
-        5. HEMAT ENERGI (EP): JANGAN buang-buang EP untuk aksi tidak perlu. JIKA TIDAK ADA MUSUH di dekatmu, dan kamu tidak sedang dalam bahaya gas, batasi penggunaan EP. Gunakan aksi 'rest' untuk menimbun energi (EP) sebanyak mungkin agar siap bertempur. KECUALI JIKA ADA MUSUH, kamu boleh jor-joran menggunakan energi untuk menyerang atau bermanuver!
+        4. HEALING MAKSIMAL: Jika HP-mu belum mencapai 100 dan kamu punya obat, gunakan aksi 'use_item' terus sampai HP-mu menyentuh angka 100 penuh. Darah harus selalu penuh!
+        5. HEMAT ENERGI (EP): JANGAN buang-buang EP. JIKA TIDAK ADA MUSUH di dekatmu dan tidak sedang dalam bahaya gas, batasi penggunaan EP. Gunakan aksi 'rest' untuk menimbun energi. KECUALI JIKA ADA MUSUH, kamu boleh jor-joran menggunakan energi untuk bertempur!
+        6. AMBIL SMOLTZ: Setiap kali kamu membunuh musuh atau monster, dan mereka menjatuhkan koin sMoltz ke tanah, gunakan aksi 'pickup' untuk langsung mengambilnya!
         
-        6. ATURAN BARU (AMBIL SMOLTZ): Setiap kali kamu berhasil membunuh pemain (agent) lain atau monster/guardian, dan mereka menjatuhkan koin sMoltz ke tanah, gunakan aksi 'pickup' untuk langsung mengambilnya tanpa menunda-nunda! Mengumpulkan sMoltz adalah tujuan utamamu.
-        
-        7. PRIORITAS BERBURU: Jika kondisi kuat (Punya Katana/Sniper dan HP penuh), buru 5 Guardian untuk mengumpulkan 120 sMoltz. Hitung damagemu dulu agar tidak mati konyol melawan DEF 12 mereka!
+        === TAMBAHAN LOGIKA CERDAS BARU ===
+        7. RESPON WHISPER (DIPLOMASI): Cek pesan masuk di 'recentMessages'. Jika ada pemain lain yang mengirimkan pesan berisi pertanyaan matematika sederhana (seperti 2+2, 5-3), jawablah dengan angka yang benar melalui aksi 'whisper'. Jika pesannya hanya chat biasa, jawab dengan "Focusing on survival".
+        8. LOGIKA OPORTUNIS (SEKALIAN LEWAT): Jika kamu sedang terluka (HP < 50) dan sedang berlari mencari obat, tapi kamu melihat ada senjata dewa (Katana atau Sniper) di region yang sama, gunakan aksi bebas 'pickup' untuk mengambilnya dulu sebelum lanjut fokus mencari penyembuhan!
+        9. STRATEGI ANTI-GANK: Jika ada 2 atau lebih musuh di dekatmu, gunakan aksi 'move' untuk kabur ke tempat aman. KECUALI jika ada salah satu musuh yang HP-nya kritis (HP < 40), abaikan rasa takut dan hajar musuh sekarat tersebut untuk mencuri kill!
         
         Kamu HANYA BOLEH merespon output dalam format JSON murni tanpa ada penjelasan teks pembuka atau penutup sama sekali.
         Contoh Respons JSON yang valid:
