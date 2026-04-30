@@ -77,7 +77,15 @@ class AggressiveAgent:
         === TAMBAHAN LOGIKA CERDAS BARU ===
         7. RESPON WHISPER (DIPLOMASI): Cek pesan masuk di 'recentMessages'. Jika ada pemain lain yang mengirimkan pesan berisi pertanyaan matematika sederhana (seperti 2+2, 5-3), jawablah dengan angka yang benar melalui aksi 'whisper'. Jika pesannya hanya chat biasa, jawab dengan "Focusing on survival".
         8. LOGIKA OPORTUNIS (SEKALIAN LEWAT): Jika kamu sedang terluka (HP < 50) dan sedang berlari mencari obat, tapi kamu melihat ada senjata dewa (Katana atau Sniper) di region yang sama, gunakan aksi bebas 'pickup' untuk mengambilnya dulu sebelum lanjut fokus mencari penyembuhan!
-        9. STRATEGI ANTI-GANK: Jika ada 2 atau lebih musuh di dekatmu, gunakan aksi 'move' untuk kabur ke tempat aman. KECUALI jika ada salah satu musuh yang HP-nya kritis (HP < 40), abaikan rasa takut dan hajar musuh sekarat tersebut untuk mencuri kill!
+        9. STRATEGI ANTI-GANK & BERTARUNG: 
+          - Jika ada 2 atau lebih musuh di dekatmu, gunakan aksi 'move' untuk kabur ke tempat aman. KECUALI jika ada salah satu musuh yang HP-nya kritis (HP < 40), hajar musuh sekarat tersebut!
+          - JIKA HANYA ADA 1 MUSUH di regionmu, KAMU WAJIB MENILAI SITUASI DULU:
+            * Cek apakah kamu sudah memegang senjata.
+            * Bandingkan senjatamu dengan senjata musuh menggunakan rumus damage resmi.
+            * JANGAN PERNAH menyerang jika kamu masih tangan kosong (Fist) sementara musuh sudah memegang senjata tajam/api. Lebih baik gunakan 'move' untuk menjauh atau 'rest'.
+            * SERANG HANYA JIKA kamu memiliki senjata yang setara atau lebih kuat, atau darah musuh jauh lebih tipis dari darahmu.
+            * Dilarang keras melakukan 'interact' dengan fasilitas apa pun (termasuk Broadcast Station) jika ada musuh di region yang sama agar kamu tidak lengah saat menilai situasi bertarung!
+
         
         Kamu HANYA BOLEH merespon output dalam format JSON murni tanpa ada penjelasan teks pembuka atau penutup sama sekali.
         Contoh Respons JSON yang valid:
